@@ -22,7 +22,7 @@ android {
 
     signingConfigs {
         create("debug") {
-            storeFile = File(project.property("flutterProjectRoot")!!, "android/app/debug.keystore")
+            storeFile = File(project.property("flutterProjectRoot") as String, "android/app/debug.keystore")
             storePassword = "android"
             keyAlias = "AndroidDebugKey"
             keyPassword = "android"
