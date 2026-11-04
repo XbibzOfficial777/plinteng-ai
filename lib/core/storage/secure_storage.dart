@@ -9,7 +9,7 @@ import '../utilities/logger.dart';
 /// API keys and bot tokens live here — never in shared prefs, logs, or
 /// analytics. Reads/writes are async and failures surface as [StorageException].
 class SecureStorage {
-  SecureStorage._(this._storage);
+  const SecureStorage._(this._storage);
 
   final FlutterSecureStorage _storage;
 
