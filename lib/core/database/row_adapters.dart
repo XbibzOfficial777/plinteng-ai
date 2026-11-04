@@ -10,16 +10,16 @@ extension AgentsRowExtension on AgentsRow {
         id: id,
         name: name,
         personality: personality,
-        customInstructions: customInstructions,
-        preferredLanguage: preferredLanguage,
-        responseLength: responseLength,
-        formality: formality,
-        humorEnabled: humorEnabled,
-        providerId: providerId,
-        integrationIds: integrationIds,
-        isActive: isActive,
-        createdAt: createdAt,
-        updatedAt: updatedAt,
+        customInstructions: customInstructions ?? '',
+        preferredLanguage: preferredLanguage ?? '',
+        responseLength: responseLength ?? 'medium',
+        formality: formality ?? 'medium',
+        humorEnabled: humorEnabled ?? false,
+        providerId: providerId ?? '',
+        integrationIds: integrationIds ?? '',
+        isActive: isActive ?? false,
+        createdAt: createdAt ?? DateTime.now(),
+        updatedAt: updatedAt ?? DateTime.now(),
       );
 }
 
@@ -28,9 +28,9 @@ extension ActivityItemsRowExtension on ActivityItemsRow {
         id: id,
         kind: ActivityKind.values.firstWhere((e) => e.name == kind),
         title: title,
-        details: details,
+        details: details ?? '',
         status:
             ActivityStatus.values.firstWhere((e) => e.name == status),
-        createdAt: createdAt,
+        createdAt: createdAt ?? DateTime.now(),
       );
 }
