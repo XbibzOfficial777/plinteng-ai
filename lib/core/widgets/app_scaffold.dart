@@ -33,7 +33,6 @@ class AppScaffold extends StatelessWidget {
             pinned: true,
             expandedHeight: 72,
             title: Text(title),
-            subtitle: subtitle != null ? Text(subtitle!) : null,
             actions: actions,
           ),
           if (currentAgentLabel != null && onSelectAgent != null)
@@ -55,7 +54,7 @@ class AppScaffold extends StatelessWidget {
                 ),
               ),
             ),
-          if (body != null) SliverFillRemaining(hasBody: true, child: body!),
+          if (body != null) SliverFillRemaining(child: body!),
         ],
       ),
       bottomNavigationBar: bottomBar,

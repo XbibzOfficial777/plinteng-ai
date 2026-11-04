@@ -79,8 +79,8 @@ class _AgentCard extends StatelessWidget {
         trailing: StatusPill(
           label: status,
           kind: status == 'Siap bekerja'
-              ? StatusPill.StatusKind.success
-              : StatusPill.StatusKind.idle,
+              ? StatusKind.success
+              : StatusKind.idle,
         ),
         onTap: () {},
       ),

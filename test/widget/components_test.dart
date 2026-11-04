@@ -36,8 +36,8 @@ void main() {
       home: Scaffold(
         body: SegmentedControl<String>(
           options: const [
-            (label: 'Linca', value: 'linca'),
-            (label: 'CS', value: 'cs'),
+            (icon: null, label: 'Linca', value: 'linca'),
+            (icon: null, label: 'CS', value: 'cs'),
           ],
           selected: 'linca',
           onSelected: (_) {},

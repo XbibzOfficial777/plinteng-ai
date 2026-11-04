@@ -46,11 +46,11 @@ class HomeScreen extends StatelessWidget {
           Row(
             children: [
               Expanded(
-                child: StatusPill(label: 'Siap bekerja', kind: StatusPill.StatusKind.success),
+                child: StatusPill(label: 'Siap bekerja', kind: StatusKind.success),
               ),
               const SizedBox(width: 12),
               Expanded(
-                child: StatusPill(label: 'Automasi aktif', kind: StatusPill.StatusKind.active),
+                child: StatusPill(label: 'Automasi aktif', kind: StatusKind.active),
               ),
             ],
           ),
@@ -160,7 +160,7 @@ class _QuickAction extends StatelessWidget {
       width: 84,
       height: 84,
       decoration: BoxDecoration(
-        color: theme.colorScheme.elevatedSurface,
+        color: AppColors.elevatedSurface,
         borderRadius: BorderRadius.circular(18),
         boxShadow: const [
           BoxShadow(color: Color(0x14000000), blurRadius: 8, offset: Offset(0, 4)),
@@ -235,14 +235,14 @@ class _ScheduleRow extends StatelessWidget {
     );
   }
 
-  StatusPill.StatusKind _statusKind(String s) {
+  StatusKind _statusKind(String s) {
     switch (s) {
       case 'Selesai':
-        return StatusPill.StatusKind.success;
+        return StatusKind.success;
       case 'Berjalan':
-        return StatusPill.StatusKind.active;
+        return StatusKind.active;
       default:
-        return StatusPill.StatusKind.idle;
+        return StatusKind.idle;
     }
   }
 }
@@ -297,7 +297,7 @@ class _Shortcut extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: theme.colorScheme.elevatedSurface,
+        color: AppColors.elevatedSurface,
         borderRadius: BorderRadius.circular(14),
       ),
       child: Row(

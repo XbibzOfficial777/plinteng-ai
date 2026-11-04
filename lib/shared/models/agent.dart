@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_serializable/json_serializable.dart';
 
 part 'agent.freezed.dart';
 part 'agent.g.dart';
@@ -6,6 +7,7 @@ part 'agent.g.dart';
 /// An AI agent. Each agent owns isolated data: personality, provider
 /// config, integrations, automation rules, conversations, activity.
 @freezed
+@JsonSerializable()
 class Agent with _$Agent {
   Agent._({
     required this.id,
@@ -34,17 +36,17 @@ class Agent with _$Agent {
         updatedAt = updatedAt ?? DateTime.now();
 
   factory Agent({
-    required this.id,
-    required this.name,
-    required this.personality,
-    @Default('') this.customInstructions,
-    @Default('') this.preferredLanguage,
-    @Default('medium') this.responseLength,
-    @Default('medium') this.formality,
-    @Default(false) this.humorEnabled,
-    @Default('') this.providerId,
-    @Default('') this.integrationIds,
-    @Default(false) this.isActive,
+    required String id,
+    required String name,
+    required String personality,
+    @Default('') String customInstructions,
+    @Default('') String preferredLanguage,
+    @Default('medium') String responseLength,
+    @Default('medium') String formality,
+    @Default(false) bool humorEnabled,
+    @Default('') String providerId,
+    @Default('') String integrationIds,
+    @Default(false) bool isActive,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _Agent;

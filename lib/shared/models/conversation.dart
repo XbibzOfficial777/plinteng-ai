@@ -1,10 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_serializable/json_serializable.dart';
 
 part 'conversation.freezed.dart';
 part 'conversation.g.dart';
 
 /// A conversation session between a user and one agent.
 @freezed
+@JsonSerializable()
 class Conversation with _$Conversation {
   Conversation._({
     required this.id,
@@ -19,10 +21,10 @@ class Conversation with _$Conversation {
         updatedAt = updatedAt ?? DateTime.now();
 
   factory Conversation({
-    required this.id,
-    required this.agentId,
-    required this.title,
-    @Default([]) this.messages,
+    required String id,
+    required String agentId,
+    required String title,
+    @Default([]) List<Message> messages,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) = _Conversation;
@@ -36,6 +38,7 @@ class Conversation with _$Conversation {
 }
 
 @freezed
+@JsonSerializable()
 class Message with _$Message {
   Message._({
     required this.id,
@@ -50,11 +53,11 @@ class Message with _$Message {
         createdAt = createdAt ?? DateTime.now();
 
   factory Message({
-    required this.id,
-    required this.role,
-    required this.content,
-    @Default(false) this.isStreaming,
-    @Default(false) this.isError,
+    required String id,
+    required MessageRole role,
+    required String content,
+    @Default(false) bool isStreaming,
+    @Default(false) bool isError,
     DateTime? createdAt,
   }) = _Message;
 

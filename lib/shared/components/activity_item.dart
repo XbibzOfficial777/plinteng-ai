@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 
+import '../../core/widgets/section_card.dart';
+
 /// Reusable activity row card (icon, title, subtitle, time, status pill).
 class ActivityItemCard extends StatelessWidget {
   const ActivityItemCard({
     super.key,
     required this.icon,
     required this.title,
-    @required this.subtitle,
+    required this.subtitle,
     required this.time,
     required this.kindLabel,
     this.onTap,
   });
 
   final IconData icon;
-  @required
   final String title;
   final String subtitle;
   final String time;
@@ -57,14 +58,14 @@ class ActivityItemCard extends StatelessWidget {
     );
   }
 
-  StatusPill.StatusKind _kindOf(String s) {
+  StatusKind _kindOf(String s) {
     switch (s) {
       case 'Error':
-        return StatusPill.StatusKind.error;
+        return StatusKind.error;
       case 'Otomatisasi':
-        return StatusPill.StatusKind.active;
+        return StatusKind.active;
       default:
-        return StatusPill.StatusKind.success;
+        return StatusKind.success;
     }
   }
 }

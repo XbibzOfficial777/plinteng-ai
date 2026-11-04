@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../theme/app_colors.dart';
-import '../theme/app_typography.dart';
+import '../../core/widgets/section_card.dart';
+import '../../theme/app_colors.dart';
+import '../../theme/app_typography.dart';
 
 /// Provider card — shows provider name, model, key status and a verify button.
 ///
@@ -58,8 +59,8 @@ class ProviderCard extends StatelessWidget {
             StatusPill(
               label: isVerified ? 'Terverifikasi' : (isKeySet ? 'Belum diverifikasi' : 'Kunci belum diisi'),
               kind: isVerified
-                  ? StatusPill.StatusKind.success
-                  : (isKeySet ? StatusPill.StatusKind.warning : StatusPill.StatusKind.disabled),
+                  ? StatusKind.success
+                  : (isKeySet ? StatusKind.warning : StatusKind.disabled),
             ),
             if (isDefault) ...[const SizedBox(height: 6), Text('Default', style: AppTypography.labelSmall)],
           ],

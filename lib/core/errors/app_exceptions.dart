@@ -36,17 +36,17 @@ sealed class AppResult<T> {
   const AppResult();
 }
 
-class AppSuccess<T> extends AppResult {
+class AppSuccess<T> extends AppResult<T> {
   const AppSuccess(this.value);
   final T value;
 }
 
-class AppFailure extends AppResult {
+class AppFailure extends AppResult<Never> {
   const AppFailure(this.error);
   final AppException error;
 }
 
-extension on Future<T> {
+extension<T> on Future<T> {
   /// Wrap a future so it never throws — use in UI-bound flows.
   Future<AppResult<T>> toAppResult() async {
     try {

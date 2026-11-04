@@ -17,13 +17,10 @@ final class AppRouter {
   static final GoRouter _router = GoRouter(
     initialLocation: AppRoutes.home,
     routes: <RouteBase>[
-      StatefulShellRoute.bottomNavigationBar(
-        builder: (BuildContext context, StatefulNavigationShell state,
-            Widget Function(BuildContext, StatefulNavigationShell)? nextShell) {
-          return _PlintengShell(
-            state: state,
-            nextShell: nextShell,
-          );
+      StatefulShellRoute.indexedStack(
+        builder: (BuildContext context, GoRouterState state,
+            StatefulNavigationShell navigationShell) {
+          return _PlintengShell(navigationShell: navigationShell);
         },
         branches: <StatefulShellBranch>[
           StatefulShellBranch(
@@ -104,13 +101,9 @@ final class AppRouter {
 
 /// Bottom-navigation shell. Only 4 destinations — deliberate hierarchy.
 class _PlintengShell extends StatelessWidget {
-  const _PlintengShell({
-    required this.state,
-    required this.nextShell,
-  });
+  const _PlintengShell({required this.navigationShell});
 
-  final StatefulNavigationShell state;
-  final Widget Function(BuildContext, StatefulNavigationShell)? nextShell;
+  final StatefulNavigationShell navigationShell;
 
   static const _destinations = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
@@ -138,20 +131,15 @@ class _PlintengShell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: nextShell?.call(context, state) ??
-          Navigator(
-            key: state.navigatorKey,
-            onPopPage: (route, result) =>
-                route.didPop(result) ?? !route.willPop(result),
-          ),
+      body: navigationShell,
       bottomNavigationBar: BottomNavigationBar(
         items: _destinations,
-        currentIndex: state.currentIndex,
+        currentIndex: navigationShell.currentIndex,
         selectedItemColor: Theme.of(context).colorScheme.primary,
         unselectedItemColor: Theme.of(context).colorScheme.onSurfaceVariant,
-        onTap: (index) => state.goBranch(
+        onTap: (index) => navigationShell.goBranch(
           index,
-          initialLocation: index == state.currentIndex,
+          initialLocation: index == navigationShell.currentIndex,
         ),
       ),
     );

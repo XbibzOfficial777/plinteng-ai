@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme/app_colors.dart';
+import '../../theme/app_typography.dart';
 
 /// Agent avatar — circular badge with the agent initial.
 class AgentAvatar extends StatelessWidget {
@@ -30,7 +30,7 @@ class AgentAvatar extends StatelessWidget {
       child: Center(
         child: Text(
           initial,
-          style: theme.textTheme.titleMedium.copyWith(
+          style: AppTypography.titleMedium.copyWith(
             color: theme.colorScheme.onPrimaryContainer,
             fontSize: size * 0.42,
           ),

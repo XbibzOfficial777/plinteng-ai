@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../theme/app_colors.dart';
+import '../../theme/app_colors.dart';
+import '../../theme/app_typography.dart';
 
 /// A segmented control for selecting between 2–4 options.
 /// Used for agent switching on the home screen.
@@ -55,7 +56,7 @@ class SegmentedControl<T> extends StatelessWidget {
                     if (opt.icon != null) const SizedBox(width: 6),
                     Text(
                       opt.label,
-                      style: theme.textTheme.labelMedium.copyWith(
+                      style: AppTypography.labelMedium.copyWith(
                         color: isSelected ? AppColors.onSurface : theme.colorScheme.onSurfaceVariant,
                       ),
                     ),

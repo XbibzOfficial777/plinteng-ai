@@ -24,13 +24,10 @@ abstract final class AppTheme {
       onSurfaceVariant: AppColors.onSurfaceVariant,
       outline: AppColors.outline,
       outlineVariant: AppColors.outlineVariant,
-      success: AppColors.success,
-      onSuccess: AppColors.onSuccess,
       error: AppColors.error,
       onError: AppColors.onError,
       background: AppColors.background,
       onBackground: AppColors.onBackground,
-      disabled: AppColors.disabled,
     );
 
     return ThemeData(
@@ -40,7 +37,7 @@ abstract final class AppTheme {
       splashFactory: InkSparkle.splashFactory,
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
-          TargetPlatform.android: _PlintengPageTransitions.android,
+          TargetPlatform.android: const _PlintengPageTransitions(),
         },
       ),
       cardTheme: const CardThemeData(
@@ -160,13 +157,10 @@ abstract final class AppTheme {
       onSurfaceVariant: AppColors.darkOnSurfaceVariant,
       outline: AppColors.darkOutline,
       outlineVariant: AppColors.darkOutlineVariant,
-      success: AppColors.darkSuccess,
-      onSuccess: AppColors.darkOnSuccess,
       error: AppColors.darkError,
       onError: AppColors.darkOnError,
       background: AppColors.darkBackground,
       onBackground: AppColors.darkOnBackground,
-      disabled: AppColors.darkDisabled,
     );
 
     return ThemeData(
@@ -176,7 +170,7 @@ abstract final class AppTheme {
       splashFactory: InkSparkle.splashFactory,
       pageTransitionsTheme: const PageTransitionsTheme(
         builders: {
-          TargetPlatform.android: _PlintengPageTransitions.android,
+          TargetPlatform.android: const _PlintengPageTransitions(),
         },
       ),
       cardTheme: const CardThemeData(
@@ -225,13 +219,10 @@ abstract final class AppTheme {
 
 /// Slide + fade page transition (Android).
 class _PlintengPageTransitions extends PageTransitionsBuilder {
-  const _PlintengPageTransitions._();
-
-  static final _PlintengPageTransitions android =
-      _PlintengPageTransitions._();
+  const _PlintengPageTransitions();
 
   @override
-  Widget buildTransitions<T extends Animation<double>>(
+  Widget buildTransitions<T>(
     PageRoute<T> route,
     BuildContext context,
     Animation<double> animation,

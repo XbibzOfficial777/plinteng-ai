@@ -47,7 +47,7 @@ final class AppHttpClient {
 class _HostGuardInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final host = options.host;
+    final host = options.uri.host;
     if (!AppConfig.allowedHosts.contains(host)) {
       AppLogger.warn('Blocked request to disallowed host: $host');
       handler.reject(
@@ -68,7 +68,7 @@ class _HostGuardInterceptor extends Interceptor {
 class _SafeLoggingInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    AppLogger.logSafe('→ ${options.method} ${options.host}${options.path}');
+    AppLogger.logSafe('→ ${options.method} ${options.uri.host}${options.path}');
     handler.next(options);
   }
 

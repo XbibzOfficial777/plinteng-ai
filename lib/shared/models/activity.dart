@@ -1,19 +1,21 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_serializable/json_serializable.dart';
 
 part 'activity.freezed.dart';
 part 'activity.g.dart';
 
 /// Activity history records. Persistent, date-grouped, searchable.
 @freezed
+@JsonSerializable()
 class ActivityItem with _$ActivityItem {
-  const ActivityItem({
-    required this.id,
-    required this.kind,
-    required this.title,
-    @Default('') this.details,
-    required this.createdAt,
-    @Default(ActivityStatus.completed) this.status,
-  });
+  const factory ActivityItem({
+    required String id,
+    required ActivityKind kind,
+    required String title,
+    @Default('') String details,
+    required DateTime createdAt,
+    @Default(ActivityStatus.completed) ActivityStatus status,
+  }) = _ActivityItem;
 
   final String id;
   final ActivityKind kind;

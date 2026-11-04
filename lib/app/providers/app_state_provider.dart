@@ -3,16 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Application-wide state (theme mode + active agent).
 final themeModeProvider =
-    StateNotifierProvider<ThemeModeNotifier, ThemeMode>((ref) {
-  return ThemeModeNotifier();
-});
+    NotifierProvider<ThemeModeNotifier, ThemeMode>(ThemeModeNotifier::new);
 
-class ThemeModeNotifier extends StateNotifier<ThemeMode> {
-  ThemeModeNotifier() : super(ThemeMode.system);
+class ThemeModeNotifier extends Notifier<ThemeMode> {
+  @override
+  ThemeMode build() => ThemeMode.system;
 
   void toggle() => state = state == ThemeMode.dark
       ? ThemeMode.light
       : ThemeMode.dark;
 }
 
-final activeAgentIdProvider = StateProvider<String>((ref) => 'agent-1');
+final activeAgentIdProvider = Provider<String>((ref) => 'agent-1');

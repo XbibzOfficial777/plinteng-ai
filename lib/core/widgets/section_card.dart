@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../theme/app_colors.dart';
+import '../../theme/app_typography.dart';
 
 /// A reusable content card with rounded corners and a consistent padding.
 class SectionCard extends StatelessWidget {
@@ -92,10 +93,7 @@ class StatusPill extends StatelessWidget {
       child: Text(
         label,
         textAlign: TextAlign.center,
-        style: Theme.of(context)
-            .textTheme
-            .labelSmall
-            .copyWith(color: _foreground),
+        style: AppTypography.labelSmall.copyWith(color: _foreground),
       ),
     );
   }

@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_serializable/json_serializable.dart';
 
 part 'ai_provider.freezed.dart';
 part 'ai_provider.g.dart';
@@ -14,6 +15,7 @@ enum AiProviderType {
 /// AI provider configuration. Credentials are NOT stored here — only
 /// metadata. The API key lives in secure storage keyed by providerId.
 @freezed
+@JsonSerializable()
 class AiProvider with _$AiProvider {
   AiProvider._({
     required this.id,
@@ -34,14 +36,14 @@ class AiProvider with _$AiProvider {
         createdAt = createdAt ?? DateTime.now();
 
   factory AiProvider({
-    required this.id,
-    required this.type,
-    required this.name,
-    @Default('') this.baseUrl,
-    @Default([]) this.models,
-    @Default('') this.defaultModel,
-    @Default(false) this.isDefault,
-    @Default(ConnectionStatus.unverified) this.status,
+    required String id,
+    required AiProviderType type,
+    required String name,
+    @Default('') String baseUrl,
+    @Default([]) List<String> models,
+    @Default('') String defaultModel,
+    @Default(false) bool isDefault,
+    @Default(ConnectionStatus.unverified) ConnectionStatus status,
     DateTime? createdAt,
   }) = _AiProvider;
 

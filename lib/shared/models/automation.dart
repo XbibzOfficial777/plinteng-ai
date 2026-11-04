@@ -1,10 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_serializable/json_serializable.dart';
 
 part 'automation.freezed.dart';
 part 'automation.g.dart';
 
 /// A scheduled task assigned to an agent.
 @freezed
+@JsonSerializable()
 class ScheduledTask with _$ScheduledTask {
   ScheduledTask._({
     required this.id,
@@ -20,12 +22,12 @@ class ScheduledTask with _$ScheduledTask {
         createdAt = createdAt ?? DateTime.now();
 
   factory ScheduledTask({
-    required this.id,
-    required this.agentId,
-    required this.title,
-    required this.scheduledAt,
-    @Default(TaskStatus.pending) this.status,
-    @Default('') this.instruction,
+    required String id,
+    required String agentId,
+    required String title,
+    required DateTime scheduledAt,
+    @Default(TaskStatus.pending) TaskStatus status,
+    @Default('') String instruction,
     DateTime? createdAt,
   }) = _ScheduledTask;
 
@@ -42,6 +44,7 @@ enum TaskStatus { pending, scheduled, running, completed, failed, cancelled }
 
 /// An automation rule (trigger → conditions → action).
 @freezed
+@JsonSerializable()
 class AutomationRule with _$AutomationRule {
   AutomationRule._({
     required this.id,
@@ -59,13 +62,13 @@ class AutomationRule with _$AutomationRule {
         createdAt = createdAt ?? DateTime.now();
 
   factory AutomationRule({
-    required this.id,
-    required this.name,
-    required this.trigger,
-    required this.agentId,
-    @Default('') this.instruction,
-    @Default(ExecutionPolicy.manualApproval) this.executionPolicy,
-    @Default(true) this.isEnabled,
+    required String id,
+    required String name,
+    required AutomationTrigger trigger,
+    required String agentId,
+    @Default('') String instruction,
+    @Default(ExecutionPolicy.manualApproval) ExecutionPolicy executionPolicy,
+    @Default(true) bool isEnabled,
     DateTime? createdAt,
   }) = _AutomationRule;
 

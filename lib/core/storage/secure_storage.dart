@@ -16,23 +16,22 @@ class SecureStorage {
   static const SecureStorage instance = SecureStorage._(
     const FlutterSecureStorage(
       aOptions: AndroidOptions(
-       encryptedSharedPreferencesFileName:
-           'plinteng_secure_prefs.xml',
-      encryptedSharedPreferencesMode: EncryptedSharedPreferencesMode.encrypted,
+        encryptedSharedPreferences: true,
+        sharedPreferencesName: AppConfig.secureStorageAndroidPrefs,
+      ),
+      iOptions: IOSOptions(
+        accessibility: KeychainAccessibility.first_unlock_this_device,
+        sharedPreferencesName: AppConfig.secureStorageAndroidPrefs,
+      ),
+      mOptions: MacOSOptions(
+        accessibility: KeychainAccessibility.first_unlock_this_device,
+        sharedPreferencesName: AppConfig.secureStorageAndroidPrefs,
+      ),
     ),
-    iOptions: IOSOptions(
-       accessibility: SecureStorageType.firstUnlockThisDeviceOnly,
-        sharedPreferencesName: 'plinteng_secure_prefs',
-    ),
-    mOptions: MacOSOptions(
-       accessibility: SecureStorageType.firstUnlockThisDeviceOnly,
-       sharedPreferencesName: 'plinteng_secure_prefs',
-    ),
-  ),
-);
+  );
 
   static const String _kProviderApiKeyPrefix = 'provider:';
-  static const String _kTelegramToken = 'telegram:bot_token';
+  static const String _kTelegramBotToken = 'telegram:bot_token';
   static const String _kActiveAgentId = 'agent:active';
 
   Future<void> saveProviderApiKey(String providerId, String apiKey) async {
@@ -40,11 +39,6 @@ class SecureStorage {
       await _storage.write(
         key: '$_kProviderApiKeyPrefix$providerId',
         value: apiKey,
-        options: const StorageOptions(
-          iosKeychainPreface: AppConfig.secureStorageIosPrefix,
-          androidSharedPreferencesName:
-              AppConfig.secureStorageAndroidPrefs,
-        ),
       );
     } catch (e, st) {
       AppLogger.error('Failed to save provider key', e);
@@ -55,31 +49,19 @@ class SecureStorage {
   Future<String?> readProviderApiKey(String providerId) async {
     return _storage.read(
       key: '$_kProviderApiKeyPrefix$providerId',
-      options: const StorageOptions(
-        iosKeychainPreface: AppConfig.secureStorageIosPrefix,
-        androidSharedPreferencesName: AppConfig.secureStorageAndroidPrefs,
-      ),
     );
   }
 
   Future<void> saveTelegramBotToken(String token) async {
     await _storage.write(
-      key: _kTelegramToken,
+      key: _kTelegramBotToken,
       value: token,
-      options: const StorageOptions(
-        iosKeychainPreface: AppConfig.secureStorageIosPrefix,
-        androidSharedPreferencesName: AppConfig.secureStorageAndroidPrefs,
-      ),
     );
   }
 
   Future<String?> readTelegramBotToken() async {
     return _storage.read(
-      key: _kTelegramToken,
-      options: const StorageOptions(
-        iosKeychainPreface: AppConfig.secureStorageIosPrefix,
-        androidSharedPreferencesName: AppConfig.secureStorageAndroidPrefs,
-      ),
+      key: _kTelegramBotToken,
     );
   }
 
@@ -87,20 +69,12 @@ class SecureStorage {
     await _storage.write(
       key: _kActiveAgentId,
       value: agentId,
-      options: const StorageOptions(
-        iosKeychainPreface: AppConfig.secureStorageIosPrefix,
-        androidSharedPreferencesName: AppConfig.secureStorageAndroidPrefs,
-      ),
     );
   }
 
   Future<String?> readActiveAgentId() async {
     return _storage.read(
       key: _kActiveAgentId,
-      options: const StorageOptions(
-        iosKeychainPreface: AppConfig.secureStorageIosPrefix,
-        androidSharedPreferencesName: AppConfig.secureStorageAndroidPrefs,
-      ),
     );
   }
 }

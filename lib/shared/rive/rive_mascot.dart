@@ -7,8 +7,8 @@ import 'rive_mascot_controller.dart';
 
 /// The mascot widget driven by [RiveMascotController].
 ///
-/// If the `.riv` asset is not present yet (Phase 2 deliverable), a clear
-/// placeholder is shown — no fake animations are ever substituted.
+/// If the `.riv` asset is not present yet (Rive editor deliverable), a
+/// clear placeholder is shown — no fake animations are ever substituted.
 class RiveMascot extends StatefulWidget {
   const RiveMascot({
     super.key,
@@ -46,9 +46,8 @@ class _RiveMascotState extends State<RiveMascot> {
         _controller.updateState(widget.initialState);
       }
     } catch (_) {
-      // Asset not yet shipped (Phase 2 deliverable, documented in
-      // assets/rive/README.md). Show a placeholder instead of a fake
-      // animation.
+      // Asset not yet shipped (documented in assets/rive/README.md).
+      // Show a placeholder instead of a fake animation.
       if (!_disposed) setState(() => _assetMissing = true);
     }
   }
@@ -89,10 +88,23 @@ class _RiveMascotState extends State<RiveMascot> {
       );
     }
 
+    final riveController = _controller.riveController;
+    if (riveController == null) {
+      return Container(
+        width: widget.width,
+        height: widget.height,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surfaceVariant,
+          borderRadius: BorderRadius.circular(24),
+        ),
+        child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
+      );
+    }
+
     return SizedBox(
       width: widget.width,
       height: widget.height,
-      child: RiveWidget(controller: _controller),
+      child: RiveWidget(controller: riveController),
     );
   }
 }

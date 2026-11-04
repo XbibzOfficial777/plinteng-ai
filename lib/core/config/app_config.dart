@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:flutter/foundation.dart';
 
 /// Application-level configuration.
@@ -29,8 +31,8 @@ abstract final class AppConfig {
   static const String secureStorageAndroidPrefs = 'plinteng_secure_prefs';
 
   // ---- Localization ----
-  static const Locale defaultLocale = Locale('id');
-  static const Locale fallbackLocale = Locale('en');
+  static const ui.Locale defaultLocale = ui.Locale('id');
+  static const ui.Locale fallbackLocale = ui.Locale('en');
 
   // ---- Mascot ----
   static const String mascotRiveAsset = 'assets/rive/mascot.riv';

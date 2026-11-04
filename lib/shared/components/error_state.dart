@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../theme/app_colors.dart';
+
 /// Error state with icon, title, description, and retry action.
 class ErrorState extends StatelessWidget {
   const ErrorState({

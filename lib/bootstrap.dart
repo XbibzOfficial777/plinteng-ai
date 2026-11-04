@@ -1,4 +1,4 @@
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'core/storage/secure_storage.dart';
 
 /// Bootstraps the application outside of the widget tree.
 ///
@@ -10,11 +10,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 /// This function is intentionally small and testable.
 Future<void> bootstrap() async {
   // Secure storage for API keys and provider credentials.
-  // Keys are never written to logs, analytics, or crash reports.
-  await FlutterSecureStorage.setInitialOptions(
-    options: const StorageOptions(
-      iosKeychainPreface: 'com.plinteng.ai.',
-      androidSharedPreferencesName: 'plinteng_secure_prefs',
-    ),
-  );
+  // Platform options (AndroidOptions / IOSOptions) are configured per
+  // instance in SecureStorage. Keys are never written to logs, analytics,
+  // or crash reports.
+  await SecureStorage.instance.readActiveAgentId();
 }

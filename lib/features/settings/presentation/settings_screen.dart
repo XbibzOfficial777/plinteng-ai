@@ -38,8 +38,8 @@ class SettingsScreen extends StatelessWidget {
             child: Column(
               children: [
                 _SettingRow(icon: Icons.cloud_sync_outlined, title: 'Penyedia AI', subtitle: 'OpenAI · Gemini · Claude'),
-                _SettingRow(icon: Icons.model_outlined, title: 'Model default', subtitle: 'Auto'),
-                _SettingRow(icon: Icons.robot_outlined, title: 'Agent', subtitle: 'Linca'),
+                _SettingRow(icon: Icons.psychology_outlined, title: 'Model default', subtitle: 'Auto'),
+                _SettingRow(icon: Icons.smart_toy_outlined, title: 'Agent', subtitle: 'Linca'),
               ],
             ),
           ),
@@ -60,7 +60,7 @@ class SettingsScreen extends StatelessWidget {
             title: 'Izin Android',
             child: Column(
               children: [
-                _SettingRow(icon: Icons.notification_listener_outlined, title: 'Akses notifikasi', subtitle: 'Diizinkan'),
+                _SettingRow(icon: Icons.notifications_outlined, title: 'Akses notifikasi', subtitle: 'Diizinkan'),
                 _SettingRow(icon: Icons.draw_outlined, title: 'Tampil di atas aplikasi', subtitle: 'Diizinkan'),
                 _SettingRow(icon: Icons.battery_full_outlined, title: 'Hemat baterai', subtitle: 'Diizinkan'),
               ],

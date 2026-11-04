@@ -37,7 +37,7 @@ class AppInput extends StatelessWidget {
           onChanged: onChanged,
           decoration: InputDecoration(
             hintText: hint,
-            trailingIcon: trailing,
+            suffix: trailing,
           ),
         ),
       ],

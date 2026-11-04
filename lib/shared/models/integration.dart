@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_serializable/json_serializable.dart';
 
 part 'integration.freezed.dart';
 part 'integration.g.dart';
@@ -8,6 +9,7 @@ part 'integration.g.dart';
 /// Status semantics are explicit: an integration is never shown as
 /// connected when it is not.
 @freezed
+@JsonSerializable()
 class Integration with _$Integration {
   Integration._({
     required this.id,
@@ -24,12 +26,12 @@ class Integration with _$Integration {
         createdAt = createdAt ?? DateTime.now();
 
   factory Integration({
-    required this.id,
-    required this.platform,
-    required this.displayName,
-    @Default(IntegrationStatus.available) this.status,
-    @Default([]) this.capabilities,
-    @Default('') this.detail,
+    required String id,
+    required IntegrationPlatform platform,
+    required String displayName,
+    @Default(IntegrationStatus.available) IntegrationStatus status,
+    @Default([]) List<String> capabilities,
+    @Default('') String detail,
     DateTime? createdAt,
   }) = _Integration;
 

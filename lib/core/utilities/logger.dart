@@ -17,10 +17,10 @@ abstract final class AppLogger {
   static void info(String message) => developer.log(message, name: 'plinteng');
 
   static void warn(String message) =>
-      developer.log(message, name: 'plinteng', level: DiagnosticLevel.warning);
+      developer.log(message, name: 'plinteng', level: developer.DiagnosticLevel.warning);
 
   static void error(String message, [Object? error]) =>
-      developer.log(message, name: 'plinteng', level: DiagnosticLevel.error, error: error);
+      developer.log(message, name: 'plinteng', level: developer.DiagnosticLevel.error, error: error);
 
   /// Redacts obvious secret-looking tokens before logging.
   static void logSafe(String message) {
