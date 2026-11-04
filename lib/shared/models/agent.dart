@@ -11,18 +11,26 @@ class Agent with _$Agent {
     required this.id,
     required this.name,
     required this.personality,
-    this.customInstructions,
-    this.preferredLanguage,
-    this.responseLength,
-    this.formality,
-    this.humorEnabled,
-    this.providerId,
-    this.integrationIds,
-    this.isActive,
-    this.createdAt,
-    this.updatedAt,
+    String? customInstructions,
+    String? preferredLanguage,
+    String? responseLength,
+    String? formality,
+    bool? humorEnabled,
+    String? providerId,
+    String? integrationIds,
+    bool? isActive,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   })
-      : createdAt = createdAt ?? DateTime.now(),
+      : customInstructions = customInstructions ?? '',
+        preferredLanguage = preferredLanguage ?? '',
+        responseLength = responseLength ?? 'medium',
+        formality = formality ?? 'medium',
+        humorEnabled = humorEnabled ?? false,
+        providerId = providerId ?? '',
+        integrationIds = integrationIds ?? '',
+        isActive = isActive ?? false,
+        createdAt = createdAt ?? DateTime.now(),
         updatedAt = updatedAt ?? DateTime.now();
 
   factory Agent({
@@ -37,8 +45,8 @@ class Agent with _$Agent {
     @Default('') this.providerId,
     @Default('') this.integrationIds,
     @Default(false) this.isActive,
-    this.createdAt,
-    this.updatedAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) = _Agent;
 
   final String id;

@@ -19,25 +19,30 @@ class AiProvider with _$AiProvider {
     required this.id,
     required this.type,
     required this.name,
-    this.baseUrl,
-    this.models,
-    this.defaultModel,
-    this.isDefault,
-    this.status,
-    this.createdAt,
+    String? baseUrl,
+    List<String>? models,
+    String? defaultModel,
+    bool? isDefault,
+    ConnectionStatus? status,
+    DateTime? createdAt,
   })
-      : createdAt = createdAt ?? DateTime.now();
+      : baseUrl = baseUrl ?? '',
+        models = models ?? const [],
+        defaultModel = defaultModel ?? '',
+        isDefault = isDefault ?? false,
+        status = status ?? ConnectionStatus.unverified,
+        createdAt = createdAt ?? DateTime.now();
 
   factory AiProvider({
     required this.id,
     required this.type,
     required this.name,
-    this.baseUrl = '',
+    @Default('') this.baseUrl,
     @Default([]) this.models,
     @Default('') this.defaultModel,
     @Default(false) this.isDefault,
     @Default(ConnectionStatus.unverified) this.status,
-    this.createdAt,
+    DateTime? createdAt,
   }) = _AiProvider;
 
   final String id;

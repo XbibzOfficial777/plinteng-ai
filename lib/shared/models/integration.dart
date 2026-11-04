@@ -13,12 +13,15 @@ class Integration with _$Integration {
     required this.id,
     required this.platform,
     required this.displayName,
-    this.status,
-    this.capabilities,
-    this.detail,
-    this.createdAt,
+    IntegrationStatus? status,
+    List<String>? capabilities,
+    String? detail,
+    DateTime? createdAt,
   })
-      : createdAt = createdAt ?? DateTime.now();
+      : status = status ?? IntegrationStatus.available,
+        capabilities = capabilities ?? const [],
+        detail = detail ?? '',
+        createdAt = createdAt ?? DateTime.now();
 
   factory Integration({
     required this.id,
@@ -27,7 +30,7 @@ class Integration with _$Integration {
     @Default(IntegrationStatus.available) this.status,
     @Default([]) this.capabilities,
     @Default('') this.detail,
-    this.createdAt,
+    DateTime? createdAt,
   }) = _Integration;
 
   final String id;

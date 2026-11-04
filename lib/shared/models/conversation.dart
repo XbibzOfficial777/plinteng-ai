@@ -10,11 +10,12 @@ class Conversation with _$Conversation {
     required this.id,
     required this.agentId,
     required this.title,
-    this.messages,
-    this.createdAt,
-    this.updatedAt,
+    List<Message>? messages,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   })
-      : createdAt = createdAt ?? DateTime.now(),
+      : messages = messages ?? const [],
+        createdAt = createdAt ?? DateTime.now(),
         updatedAt = updatedAt ?? DateTime.now();
 
   factory Conversation({
@@ -22,8 +23,8 @@ class Conversation with _$Conversation {
     required this.agentId,
     required this.title,
     @Default([]) this.messages,
-    this.createdAt,
-    this.updatedAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) = _Conversation;
 
   final String id;
@@ -40,11 +41,13 @@ class Message with _$Message {
     required this.id,
     required this.role,
     required this.content,
-    this.isStreaming,
-    this.isError,
-    this.createdAt,
+    bool? isStreaming,
+    bool? isError,
+    DateTime? createdAt,
   })
-      : createdAt = createdAt ?? DateTime.now();
+      : isStreaming = isStreaming ?? false,
+        isError = isError ?? false,
+        createdAt = createdAt ?? DateTime.now();
 
   factory Message({
     required this.id,
@@ -52,7 +55,7 @@ class Message with _$Message {
     required this.content,
     @Default(false) this.isStreaming,
     @Default(false) this.isError,
-    this.createdAt,
+    DateTime? createdAt,
   }) = _Message;
 
   final String id;

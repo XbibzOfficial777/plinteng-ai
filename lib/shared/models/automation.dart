@@ -11,11 +11,13 @@ class ScheduledTask with _$ScheduledTask {
     required this.agentId,
     required this.title,
     required this.scheduledAt,
-    this.status,
-    this.instruction,
-    this.createdAt,
+    TaskStatus? status,
+    String? instruction,
+    DateTime? createdAt,
   })
-      : createdAt = createdAt ?? DateTime.now();
+      : status = status ?? TaskStatus.pending,
+        instruction = instruction ?? '',
+        createdAt = createdAt ?? DateTime.now();
 
   factory ScheduledTask({
     required this.id,
@@ -24,7 +26,7 @@ class ScheduledTask with _$ScheduledTask {
     required this.scheduledAt,
     @Default(TaskStatus.pending) this.status,
     @Default('') this.instruction,
-    this.createdAt,
+    DateTime? createdAt,
   }) = _ScheduledTask;
 
   final String id;
@@ -46,12 +48,15 @@ class AutomationRule with _$AutomationRule {
     required this.name,
     required this.trigger,
     required this.agentId,
-    this.instruction,
-    this.executionPolicy,
-    this.isEnabled,
-    this.createdAt,
+    String? instruction,
+    ExecutionPolicy? executionPolicy,
+    bool? isEnabled,
+    DateTime? createdAt,
   })
-      : createdAt = createdAt ?? DateTime.now();
+      : instruction = instruction ?? '',
+        executionPolicy = executionPolicy ?? ExecutionPolicy.manualApproval,
+        isEnabled = isEnabled ?? true,
+        createdAt = createdAt ?? DateTime.now();
 
   factory AutomationRule({
     required this.id,
@@ -61,7 +66,7 @@ class AutomationRule with _$AutomationRule {
     @Default('') this.instruction,
     @Default(ExecutionPolicy.manualApproval) this.executionPolicy,
     @Default(true) this.isEnabled,
-    this.createdAt,
+    DateTime? createdAt,
   }) = _AutomationRule;
 
   final String id;
