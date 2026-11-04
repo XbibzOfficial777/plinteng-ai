@@ -62,7 +62,7 @@ jobs:
           gradle-version: ${{ env.GRADLE_VERSION }}
 
       - name: Install Flutter ${{ env.FLUTTER_VERSION }}
-        uses: subosito/flutter-action@v3
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
 
@@ -112,7 +112,7 @@ jobs:
           gradle-version: ${{ env.GRADLE_VERSION }}
 
       - name: Install Flutter ${{ env.FLUTTER_VERSION }}
-        uses: subosito/flutter-action@v3
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
 
