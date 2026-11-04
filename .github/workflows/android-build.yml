@@ -67,7 +67,7 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
 
       - name: Flutter cache
-        run: flutter precache --platform=android
+        run: flutter precache --android
 
       - name: Get dependencies
         run: flutter pub get
@@ -117,7 +117,7 @@ jobs:
           flutter-version: ${{ env.FLUTTER_VERSION }}
 
       - name: Flutter cache
-        run: flutter precache --platform=android
+        run: flutter precache --android
 
       - name: Get dependencies
         run: flutter pub get
