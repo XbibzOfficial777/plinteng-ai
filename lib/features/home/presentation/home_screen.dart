@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/widgets/app_scaffold.dart';
 import '../../../core/widgets/section_card.dart';
+import '../../../shared/components/segmented_control.dart';
 import '../../../shared/rive/mascot_state.dart';
 import '../../../shared/rive/rive_mascot.dart';
 import '../../../theme/app_colors.dart';
@@ -26,6 +27,17 @@ class HomeScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.fromLTRB(20, 12, 20, 96),
         children: [
+          // ---- Agent selector ----
+          SegmentedControl<String>(
+            options: const [
+              (label: 'Linca', value: 'linca', icon: Icons.smart_toy_outlined),
+              (label: 'Kelompok CS', value: 'cs', icon: Icons.forum_outlined),
+            ],
+            selected: 'linca',
+            onSelected: (_) {},
+          ),
+          const SizedBox(height: 20),
+
           // ---- Mascot area (Rive, driven by app state) ----
           Center(child: RiveMascot(initialState: MascotState.idle)),
           const SizedBox(height: 20),
@@ -147,7 +159,7 @@ class _QuickAction extends StatelessWidget {
     return Container(
       width: 84,
       height: 84,
-     decoration: BoxDecoration(
+      decoration: BoxDecoration(
         color: theme.colorScheme.elevatedSurface,
         borderRadius: BorderRadius.circular(18),
         boxShadow: const [

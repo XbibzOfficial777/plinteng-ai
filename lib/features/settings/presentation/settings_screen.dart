@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../core/widgets/app_scaffold.dart';
 import '../../../core/widgets/section_card.dart';
+import '../../../shared/components/switch_row.dart';
 
 /// Settings — structured settings center.
 ///
@@ -24,10 +25,10 @@ class SettingsScreen extends StatelessWidget {
             title: 'Aplikasi',
             child: Column(
               children: [
+                SwitchRow(icon: Icons.vibration_outlined, title: 'Haptic feedback', subtitle: 'Getaran saat interaksi', value: true, onChanged: (_) {}),
+                SwitchRow(icon: Icons.animation_outlined, title: 'Animasi', subtitle: 'Ikuti preferensi sistem', value: true, onChanged: (_) {}),
                 _SettingRow(icon: Icons.dark_mode_outlined, title: 'Tema', subtitle: 'Cahaya / gelap'),
                 _SettingRow(icon: Icons.translate_outlined, title: 'Bahasa', subtitle: 'Bahasa Indonesia'),
-                _SettingRow(icon: Icons.vibration_outlined, title: 'Haptic', subtitle: 'Nyalakan'),
-                _SettingRow(icon: Icons.animation_outlined, title: 'Animasi', subtitle: 'Standar'),
               ],
             ),
           ),
@@ -49,7 +50,7 @@ class SettingsScreen extends StatelessWidget {
               children: [
                 _SettingRow(icon: Icons.notifications_outlined, title: 'Akses notifikasi', subtitle: 'Diizinkan'),
                 _SettingRow(icon: Icons.forum_outlined, title: 'Platform', subtitle: 'WhatsApp · Telegram'),
-                _SettingRow(icon: Icons.autorenew_outlined, title: 'Balasan otomatis', subtitle: 'Dimatikan'),
+                SwitchRow(icon: Icons.autorenew_outlined, title: 'Balasan otomatis', subtitle: 'Balasan otomatis oleh agent', value: false, onChanged: (_) {}),
                 _SettingRow(icon: Icons.bedtime_outlined, title: 'Jam tenang', subtitle: '22:00 – 07:00'),
               ],
             ),

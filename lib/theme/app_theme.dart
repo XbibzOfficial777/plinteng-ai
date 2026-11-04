@@ -38,6 +38,11 @@ abstract final class AppTheme {
       colorScheme: scheme,
       scaffoldBackgroundColor: AppColors.background,
       splashFactory: InkSparkle.splashFactory,
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: _PlintengPageTransitions.android,
+        },
+      ),
       cardTheme: const CardThemeData(
         color: AppColors.elevatedSurface,
         elevation: 0,
@@ -125,6 +130,11 @@ abstract final class AppTheme {
         elevation: 8,
       ),
       dividerColor: AppColors.outlineVariant,
+      dialogTheme: DialogThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: AppColors.elevatedSurface,
         contentTextStyle: AppTypography.bodyMedium,
@@ -164,6 +174,11 @@ abstract final class AppTheme {
       colorScheme: scheme,
       scaffoldBackgroundColor: AppColors.darkBackground,
       splashFactory: InkSparkle.splashFactory,
+      pageTransitionsTheme: const PageTransitionsTheme(
+        builders: {
+          TargetPlatform.android: _PlintengPageTransitions.android,
+        },
+      ),
       cardTheme: const CardThemeData(
         color: AppColors.darkElevatedSurface,
         elevation: 0,
@@ -199,6 +214,43 @@ abstract final class AppTheme {
         titleTextStyle: AppTypography.titleLarge,
       ),
       dividerColor: AppColors.darkOutlineVariant,
+      dialogTheme: DialogThemeData(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+      ),
+    );
+  }
+}
+
+/// Slide + fade page transition (Android).
+class _PlintengPageTransitions extends PageTransitionsBuilder {
+  const _PlintengPageTransitions._();
+
+  static final _PlintengPageTransitions android =
+      _PlintengPageTransitions._();
+
+  @override
+  Widget buildTransitions(
+    PageRoute<dynamic> route,
+    BuildContext context,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    final offset = Tween<Offset>(
+      begin: const Offset(0.15, 0),
+      end: const Offset.zero,
+    ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOutCubic));
+
+    final fade = FadeTransition(
+      opacity: CurvedAnimation(parent: animation, curve: Curves.easeOut),
+      child: child,
+    );
+
+    return SlideTransition(
+      position: offset,
+      child: fade,
     );
   }
 }

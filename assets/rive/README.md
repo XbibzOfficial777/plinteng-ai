@@ -14,6 +14,8 @@
   (see `lib/theme/app_colors.dart`).
 - Organized into independently animatable elements: head, eyes (left/right),
   mouth/eyebrows, body, arms, antenna/light, tail/aura.
+- Reference illustration: `assets/images/mascot_reference.png` (static
+  rendition — the Rive editor builds the animated version from it).
 
 ## State machine specification
 
@@ -47,9 +49,27 @@ Behavior mapping (application state → Rive):
 Never show working animation when no task is running. Never show talking
 when idle. State changes must be bound to actual application state.
 
+## Artboard structure (for the Rive artist)
+
+- Artboard name: `mascot` (512×512 viewport, `hq` render mode)
+- Nested groups (each independently animatable):
+  - `head` (contains `eyes`, `brows`, `mouth`)
+  - `body`
+  - `arms` (`arm_left`, `arm_right`)
+  - `antenna` (with `antenna_light` glow)
+- Boolean inputs named exactly as above; one trigger input `triggerSuccess`.
+- Bone/node names: stable, lowercase snake_case.
+
 ## Deliverables checklist
 
 - [ ] `mascot.riv` — main artboard + state machine
 - [ ] optimized (≤ 2 MB), correct 512 viewport, `hq` render mode for Android
 - [ ] inputs named exactly as above
 - [ ] runtime verified in the app (controller disposal, no rebuild recreation)
+
+## Integration (already implemented)
+
+- `lib/shared/rive/mascot_state.dart` — state ↔ input names
+- `lib/shared/rive/rive_mascot_controller.dart` — drives the state machine
+- `lib/shared/rive/rive_mascot.dart` — widget (placeholder until asset ships)
+- Home screen mounts the mascot and binds real app state to it.
