@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_serializable/json_serializable.dart';
 
 part 'conversation.freezed.dart';
 part 'conversation.g.dart';

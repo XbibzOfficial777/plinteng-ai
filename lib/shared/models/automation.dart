@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:json_serializable/json_serializable.dart';
 
 part 'automation.freezed.dart';
 part 'automation.g.dart';
