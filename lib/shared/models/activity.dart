@@ -8,6 +8,17 @@ part 'activity.g.dart';
 @freezed
 @JsonSerializable()
 class ActivityItem with _$ActivityItem {
+  ActivityItem._({
+    required this.id,
+    required this.kind,
+    required this.title,
+    required this.createdAt,
+    String? details,
+    ActivityStatus? status,
+  })
+      : details = details ?? '',
+        status = status ?? ActivityStatus.completed;
+
   const factory ActivityItem({
     required String id,
     required ActivityKind kind,

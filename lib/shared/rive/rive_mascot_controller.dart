@@ -25,6 +25,7 @@ class RiveMascotController {
 
   Future<void> loadAsset(String assetPath) async {
     final file = await File.asset(assetPath, riveFactory: Factory.rive);
+    if (file == null) return;
     _file = file;
     _controller = RiveWidgetController(
       file,
@@ -42,7 +43,7 @@ class RiveMascotController {
     final resting = state.isResting;
 
     if (state == MascotState.success) {
-      sm.trigger('triggerSuccess');
+      sm.trigger('triggerSuccess')?.fire();
     }
 
     for (final input in <String>[
@@ -55,12 +56,12 @@ class RiveMascotController {
       'isError',
     ]) {
       final isActive = input == state.riveInput && !resting;
-      sm.input<bool>(input)?.value = isActive;
+      sm.boolean(input)?.value = isActive;
     }
 
     if (resting) {
-      sm.input<bool>('isIdle')?.value = state == MascotState.idle;
-      sm.input<bool>('isSleeping')?.value = state == MascotState.sleeping;
+      sm.boolean('isIdle')?.value = state == MascotState.idle;
+      sm.boolean('isSleeping')?.value = state == MascotState.sleeping;
     }
   }
 

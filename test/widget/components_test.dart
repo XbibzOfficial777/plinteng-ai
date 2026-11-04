@@ -32,10 +32,10 @@ void main() {
   });
 
   testWidgets('SegmentedControl highlights the selected option', (tester) async {
-    await tester.pumpWidget(const MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: SegmentedControl<String>(
-          options: const [
+          options: [
             (icon: null, label: 'Linca', value: 'linca'),
             (icon: null, label: 'CS', value: 'cs'),
           ],
@@ -49,7 +49,7 @@ void main() {
   });
 
   testWidgets('SwitchRow renders switch with value', (tester) async {
-    await tester.pumpWidget(const MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: Scaffold(
         body: SwitchRow(icon: Icons.autorenew, title: 'Balasan otomatis', value: true, onChanged: (_) {}),
       ),

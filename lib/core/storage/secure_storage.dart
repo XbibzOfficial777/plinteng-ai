@@ -15,17 +15,14 @@ class SecureStorage {
 
   static const SecureStorage instance = SecureStorage._(
     const FlutterSecureStorage(
-      aOptions: AndroidOptions(
-        encryptedSharedPreferences: true,
-        sharedPreferencesName: AppConfig.secureStorageAndroidPrefs,
+      aOptions: const AndroidOptions(
+        storageNamespace: AppConfig.secureStorageAndroidPrefs,
       ),
-      iOptions: IOSOptions(
+      iOptions: const IOSOptions(
         accessibility: KeychainAccessibility.first_unlock_this_device,
-        sharedPreferencesName: AppConfig.secureStorageAndroidPrefs,
       ),
-      mOptions: MacOSOptions(
+      mOptions: const MacOsOptions(
         accessibility: KeychainAccessibility.first_unlock_this_device,
-        sharedPreferencesName: AppConfig.secureStorageAndroidPrefs,
       ),
     ),
   );
