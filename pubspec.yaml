@@ -24,10 +24,8 @@ dependencies:
   # Networking
   dio: ^5.11.1
 
-  # Models & serialization
-  freezed: ^4.0.3
+  # Models & serialization (code-gen tooling lives in dev_dependencies)
   freezed_annotation: ^3.1.0
-  json_serializable: ^6.15.2
 
   # Local database
   drift: ^2.35.3
