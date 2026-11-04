@@ -2,7 +2,6 @@ import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/database/app_database.dart';
-import '../../../core/database/row_adapters.dart';
 import '../../../core/database/db.dart';
 import '../../../shared/models/agent.dart';
 
@@ -64,7 +63,7 @@ class AgentRepository {
   }
 
   Future<void> update(Agent agent) async {
-    await _db.update(_db.agents).replace(AgentRow(
+    await _db.update(_db.agents).replace(AgentsRow(
       id: agent.id,
       name: agent.name,
       personality: agent.personality,
@@ -95,14 +94,25 @@ class AgentRepository {
 }
 
 final agentRepositoryProvider =
-    Provider<AgentRepository>((ref) => AgentRepository(database));
+    FutureProvider<AgentRepository>((ref) async {
+  final db = await ref.watch(databaseProvider);
+  return AgentRepository(db);
+});
 
 /// Reactive list of all agents.
 final agentsProvider = StreamProvider<List<Agent>>(
-  (ref) => ref.watch(agentRepositoryProvider).watchAll(),
+  (ref) => ref.watch(agentRepositoryProvider).when(
+        data: (repo) => repo.watchAll(),
+        loading: () => const Stream.empty(),
+        error: (_, __) => const Stream.empty(),
+      ),
 );
 
 /// Reactive single agent.
 final agentProvider = StreamProvider.family<Agent?, String>(
-  (ref, String id) => ref.watch(agentRepositoryProvider).watch(id),
+  (ref, String id) => ref.watch(agentRepositoryProvider).when(
+        data: (repo) => repo.watch(id),
+        loading: () => const Stream.empty(),
+        error: (_, __) => const Stream.empty(),
+      ),
 );

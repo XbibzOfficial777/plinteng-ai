@@ -12,7 +12,8 @@ import 'core/storage/secure_storage.dart';
 /// This function is intentionally small and testable.
 Future<void> bootstrap() async {
   // Open the local SQLite database and seed defaults (idempotent).
-  await SeedService(database).seed();
+  final db = await database;
+  await SeedService(db).seed();
 
   // Secure storage for API keys and provider credentials.
   // Keys are never written to logs, analytics, or crash reports.

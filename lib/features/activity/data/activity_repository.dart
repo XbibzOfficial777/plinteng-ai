@@ -2,7 +2,6 @@ import 'package:drift/drift.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/database/app_database.dart';
-import '../../../core/database/row_adapters.dart';
 import '../../../core/database/db.dart';
 import '../../../shared/models/activity.dart';
 
@@ -62,10 +61,19 @@ class ActivityRepository {
   }
 }
 
+final databaseProvider = FutureProvider<AppDatabase>((ref) => database);
+
 final activityRepositoryProvider =
-    Provider<ActivityRepository>((ref) => ActivityRepository(database));
+    FutureProvider<ActivityRepository>((ref) async {
+  final db = await ref.watch(databaseProvider);
+  return ActivityRepository(db);
+});
 
 /// Reactive activity feed (newest first, capped).
 final activityProvider = StreamProvider<List<ActivityItem>>(
-  (ref) => ref.watch(activityRepositoryProvider).watchAll(),
+  (ref) => ref.watch(activityRepositoryProvider).when(
+        data: (repo) => repo.watchAll(),
+        loading: () => const Stream.empty(),
+        error: (_, __) => const Stream.empty(),
+      ),
 );
