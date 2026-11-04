@@ -14,10 +14,10 @@ android {
 
     defaultConfig {
         applicationId = "com.plinteng.ai"
-        minSdk = flutterMinSdkVersion
-        targetSdk = flutterTargetSdkVersion
-        versionCode = flutterVersionCode
-        versionName = flutterVersionName
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
     }
 
     signingConfigs {
