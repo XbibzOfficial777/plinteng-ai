@@ -1,0 +1,163 @@
+name: Android Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_mode:
+        description: 'Build mode'
+        type: choice
+        default: 'release'
+        options:
+          - debug
+          - release
+      build_format:
+        description: 'Build format'
+        type: choice
+        default: 'aab'
+        options:
+          - apk
+          - aab
+      version_name:
+        description: 'Version name (e.g. 0.1.0)'
+        default: '0.1.0'
+        type: string
+      build_number:
+        description: 'Build number (e.g. 1)'
+        default: '1'
+        type: string
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: android-build-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  FLUTTER_VERSION: '3.47.7'
+  JAVA_VERSION: '17'
+  GRADLE_VERSION: '9.3.1'
+
+jobs:
+  # ------------------------------------------------------------------
+  # Validation: analyze + unit/widget tests on every push/PR
+  # ------------------------------------------------------------------
+  validate:
+    name: Analyze & Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: ${{ env.GRADLE_VERSION }}
+
+      - name: Install Flutter ${{ env.FLUTTER_VERSION }}
+        uses: subosito/flutter-action@v3
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Flutter cache
+        run: flutter precache --platform=android
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Code generation
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Static analysis
+        run: flutter analyze
+
+      - name: Unit & widget tests
+        run: flutter test --coverage
+
+      - name: Upload test coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
+          if-no-files-found: ignore
+
+  # ------------------------------------------------------------------
+  # Build: Debug APK, Release APK, Release AAB
+  # Release signing uses GitHub Secrets only. No keys are committed.
+  # ------------------------------------------------------------------
+  build:
+    name: Build (${{ github.event.inputs.build_format || 'aab' }} · ${{ github.event.inputs.build_mode || 'release' }})
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: ${{ env.GRADLE_VERSION }}
+
+      - name: Install Flutter ${{ env.FLUTTER_VERSION }}
+        uses: subosito/flutter-action@v3
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+
+      - name: Flutter cache
+        run: flutter precache --platform=android
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Code generation
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: Configure version
+        id: version
+        run: |
+          VERSION_NAME="${{ github.event.inputs.version_name || '0.1.0' }}"
+          BUILD_NUMBER="${{ github.event.inputs.build_number || '1' }}"
+          echo "version_name=$VERSION_NAME" >> "$GITHUB_OUTPUT"
+          echo "build_number=$BUILD_NUMBER" >> "$GITHUB_OUTPUT"
+
+      - name: Build APK / AAB
+        run: |
+          if [ "${{ github.event.inputs.build_format }}" = "apk" ]; then
+            flutter build apk \
+              --build-name "${{ steps.version.outputs.version_name }}" \
+              --build-number "${{ steps.version.outputs.build_number }}" \
+              ${{ github.event.inputs.build_mode == 'debug' && '--debug' || '--release' }}
+          else
+            flutter build aab \
+              --build-name "${{ steps.version.outputs.version_name }}" \
+              --build-number "${{ steps.version.outputs.build_number }}" \
+              ${{ github.event.inputs.build_mode == 'debug' && '--debug' || '--release' }}
+          fi
+        env:
+          RELEASE_STORE_FILE: ${{ secrets.RELEASE_STORE_FILE }}
+          RELEASE_STORE_PASSWORD: ${{ secrets.RELEASE_STORE_PASSWORD }}
+          RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+          RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: plinteng-ai-${{ github.event.inputs.build_format || 'aab' }}-${{ github.event.inputs.build_mode || 'release' }}
+          path: |
+            build/app/outputs/flutter-apk/*.apk
+            build/app/outputs/bundle/release/*.aab
+          if-no-files-found: error
+          retention-days: 30
