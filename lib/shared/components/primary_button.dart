@@ -24,10 +24,8 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     final isPrimary = kind == AppButtonKind.primary;
     final isOutline = kind == AppButtonKind.outline;
-    final isGhost = kind == AppButtonKind.ghost;
 
     return SizedBox(
       width: expanded ? double.infinity : null,

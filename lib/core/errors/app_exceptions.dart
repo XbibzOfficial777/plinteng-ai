@@ -45,16 +45,3 @@ class AppFailure extends AppResult<Never> {
   const AppFailure(this.error);
   final AppException error;
 }
-
-extension<T> on Future<T> {
-  /// Wrap a future so it never throws — use in UI-bound flows.
-  Future<AppResult<T>> toAppResult() async {
-    try {
-      return AppSuccess(await this);
-    } on AppException catch (e) {
-      return AppFailure(e);
-    } catch (e) {
-      return AppFailure(ProviderException('Unexpected error', cause: e));
-    }
-  }
-}

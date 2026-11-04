@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/app_colors.dart';
 
 /// Loading state with the brand spinner.
 class LoadingState extends StatelessWidget {

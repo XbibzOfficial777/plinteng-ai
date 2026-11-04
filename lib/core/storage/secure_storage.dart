@@ -37,7 +37,7 @@ class SecureStorage {
         key: '$_kProviderApiKeyPrefix$providerId',
         value: apiKey,
       );
-    } catch (e, st) {
+    } catch (e) {
       AppLogger.error('Failed to save provider key', e);
       throw StorageException('Failed to save provider key', cause: e);
     }

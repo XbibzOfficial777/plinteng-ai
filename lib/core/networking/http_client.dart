@@ -31,16 +31,16 @@ final class AppHttpClient {
 
   Dio get dio => _dio;
 
-  Future<Response> get(String path, {Map<String, dynamic>? query}) =>
+  Future<Response<dynamic>> get(String path, {Map<String, dynamic>? query}) =>
       _dio.get(path, queryParameters: query);
 
-  Future<Response> post(String path, {Object? data}) =>
+  Future<Response<dynamic>> post(String path, {Object? data}) =>
       _dio.post(path, data: data);
 
-  Future<Response> put(String path, {Object? data}) =>
+  Future<Response<dynamic>> put(String path, {Object? data}) =>
       _dio.put(path, data: data);
 
-  Future<Response> delete(String path) => _dio.delete(path);
+  Future<Response<dynamic>> delete(String path) => _dio.delete(path);
 }
 
 /// Refuses requests to any host outside the allowlist.

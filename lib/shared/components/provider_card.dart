@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../core/widgets/section_card.dart';
-import '../../theme/app_colors.dart';
 import '../../theme/app_typography.dart';
 
 /// Provider card — shows provider name, model, key status and a verify button.
