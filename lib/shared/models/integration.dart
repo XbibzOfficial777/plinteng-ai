@@ -9,15 +9,26 @@ part 'integration.g.dart';
 /// connected when it is not.
 @freezed
 class Integration with _$Integration {
-  const Integration({
+  Integration._({
+    required this.id,
+    required this.platform,
+    required this.displayName,
+    this.status,
+    this.capabilities,
+    this.detail,
+    this.createdAt,
+  })
+      : createdAt = createdAt ?? DateTime.now();
+
+  factory Integration({
     required this.id,
     required this.platform,
     required this.displayName,
     @Default(IntegrationStatus.available) this.status,
     @Default([]) this.capabilities,
     @Default('') this.detail,
-    @Default(DateTime.now()) this.createdAt,
-  });
+    this.createdAt,
+  }) = _Integration;
 
   final String id;
   final IntegrationPlatform platform;

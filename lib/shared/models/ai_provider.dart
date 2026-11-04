@@ -15,7 +15,20 @@ enum AiProviderType {
 /// metadata. The API key lives in secure storage keyed by providerId.
 @freezed
 class AiProvider with _$AiProvider {
-  const AiProvider({
+  AiProvider._({
+    required this.id,
+    required this.type,
+    required this.name,
+    this.baseUrl,
+    this.models,
+    this.defaultModel,
+    this.isDefault,
+    this.status,
+    this.createdAt,
+  })
+      : createdAt = createdAt ?? DateTime.now();
+
+  factory AiProvider({
     required this.id,
     required this.type,
     required this.name,
@@ -24,8 +37,8 @@ class AiProvider with _$AiProvider {
     @Default('') this.defaultModel,
     @Default(false) this.isDefault,
     @Default(ConnectionStatus.unverified) this.status,
-    @Default(DateTime.now()) this.createdAt,
-  });
+    this.createdAt,
+  }) = _AiProvider;
 
   final String id;
   final AiProviderType type;

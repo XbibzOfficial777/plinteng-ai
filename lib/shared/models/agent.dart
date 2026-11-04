@@ -7,7 +7,25 @@ part 'agent.g.dart';
 /// config, integrations, automation rules, conversations, activity.
 @freezed
 class Agent with _$Agent {
-  const Agent({
+  Agent._({
+    required this.id,
+    required this.name,
+    required this.personality,
+    this.customInstructions,
+    this.preferredLanguage,
+    this.responseLength,
+    this.formality,
+    this.humorEnabled,
+    this.providerId,
+    this.integrationIds,
+    this.isActive,
+    this.createdAt,
+    this.updatedAt,
+  })
+      : createdAt = createdAt ?? DateTime.now(),
+        updatedAt = updatedAt ?? DateTime.now();
+
+  factory Agent({
     required this.id,
     required this.name,
     required this.personality,
@@ -19,9 +37,9 @@ class Agent with _$Agent {
     @Default('') this.providerId,
     @Default('') this.integrationIds,
     @Default(false) this.isActive,
-    @Default(DateTime.now()) this.createdAt,
-    @Default(DateTime.now()) this.updatedAt,
-  });
+    this.createdAt,
+    this.updatedAt,
+  }) = _Agent;
 
   final String id;
   final String name;

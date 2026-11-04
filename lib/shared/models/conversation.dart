@@ -6,14 +6,25 @@ part 'conversation.g.dart';
 /// A conversation session between a user and one agent.
 @freezed
 class Conversation with _$Conversation {
-  const Conversation({
+  Conversation._({
+    required this.id,
+    required this.agentId,
+    required this.title,
+    this.messages,
+    this.createdAt,
+    this.updatedAt,
+  })
+      : createdAt = createdAt ?? DateTime.now(),
+        updatedAt = updatedAt ?? DateTime.now();
+
+  factory Conversation({
     required this.id,
     required this.agentId,
     required this.title,
     @Default([]) this.messages,
-    @Default(DateTime.now()) this.createdAt,
-    @Default(DateTime.now()) this.updatedAt,
-  });
+    this.createdAt,
+    this.updatedAt,
+  }) = _Conversation;
 
   final String id;
   final String agentId;
@@ -25,14 +36,24 @@ class Conversation with _$Conversation {
 
 @freezed
 class Message with _$Message {
-  const Message({
+  Message._({
+    required this.id,
+    required this.role,
+    required this.content,
+    this.isStreaming,
+    this.isError,
+    this.createdAt,
+  })
+      : createdAt = createdAt ?? DateTime.now();
+
+  factory Message({
     required this.id,
     required this.role,
     required this.content,
     @Default(false) this.isStreaming,
     @Default(false) this.isError,
-    @Default(DateTime.now()) this.createdAt,
-  });
+    this.createdAt,
+  }) = _Message;
 
   final String id;
   final MessageRole role;
