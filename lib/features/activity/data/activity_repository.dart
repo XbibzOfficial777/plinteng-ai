@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/database/app_database.dart';
 import '../../../core/database/db.dart';
-import '../../../shared/models/activity.dart';
+import '../../../shared/models/activity.dart' as model;
 
 /// Append-only activity history.
 ///
@@ -15,11 +15,11 @@ class ActivityRepository {
 
   final AppDatabase _db;
 
-  Stream<List<ActivityItem>> watchAll() {
+  Stream<List<model.ActivityItem>> watchAll() {
     return watchAllLimited(100);
   }
 
-  Stream<List<ActivityItem>> watchAllLimited(int limit) {
+  Stream<List<model.ActivityItem>> watchAllLimited(int limit) {
     final stmt = _db.allActivity();
     stmt.orderBy([(t) =>
         OrderingTerm(expression: t.createdAt, mode: OrderingMode.desc)]);
@@ -29,11 +29,11 @@ class ActivityRepository {
             rows.map((r) => r.toActivity()).take(limit).toList());
   }
 
-  Future<List<ActivityItem>> getAll() async {
+  Future<List<model.ActivityItem>> getAll() async {
     return getAllLimited(100);
   }
 
-  Future<List<ActivityItem>> getAllLimited(int limit) async {
+  Future<List<model.ActivityItem>> getAllLimited(int limit) async {
     final rows = await _db.allActivity().get();
     final items = rows.map((r) => r.toActivity()).toList();
     items.sort((a, b) => b.createdAt.compareTo(a.createdAt));
@@ -41,12 +41,12 @@ class ActivityRepository {
   }
 
   Future<void> log(
-    ActivityKind kind,
+    model.ActivityKind kind,
     String title, {
     String details = '',
-    ActivityStatus status = ActivityStatus.completed,
+    model.ActivityStatus status = model.ActivityStatus.completed,
   }) async {
-    await _db.into(_db.activityItems).insert(ActivityItemsCompanion.insert(
+    await _db.into(_db.activityItems).insert(ActivityItemCompanion.insert(
       id: 'act-${DateTime.now().millisecondsSinceEpoch}-${kind.name}',
       kind: kind.name,
       title: title,
@@ -65,12 +65,12 @@ final databaseProvider = FutureProvider<AppDatabase>((ref) => database);
 
 final activityRepositoryProvider =
     FutureProvider<ActivityRepository>((ref) async {
-  final db = await ref.watch(databaseProvider);
+  final db = ref.watch(databaseProvider).value;
   return ActivityRepository(db);
 });
 
 /// Reactive activity feed (newest first, capped).
-final activityProvider = StreamProvider<List<ActivityItem>>(
+final activityProvider = StreamProvider<List<model.ActivityItem>>(
   (ref) => ref.watch(activityRepositoryProvider).when(
         data: (repo) => repo.watchAll(),
         loading: () => const Stream.empty(),

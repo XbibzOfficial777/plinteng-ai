@@ -14,7 +14,7 @@ class SeedService {
     final existing = await _db.allAgents().get();
     if (existing.isNotEmpty) return;
 
-    await _db.into(_db.agents).insert(AgentsCompanion.insert(
+    await _db.into(_db.agents).insert(AgentCompanion.insert(
       id: 'agent-1',
       name: 'Linca',
       personality: 'Asisten AI yang ramah, membantu, dan proaktif.',

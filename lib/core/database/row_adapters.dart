@@ -1,12 +1,12 @@
-import '../../shared/models/activity.dart';
-import '../../shared/models/agent.dart';
+import '../../shared/models/activity.dart' as activity;
+import '../../shared/models/agent.dart' as model;
 
 import 'app_database.dart';
 
 /// Converts drift row types to domain model objects.
 
-extension AgentsRowExtension on AgentsRow {
-  Agent toAgent() => Agent(
+extension AgentRowExtension on Agent {
+  model.Agent toAgent() => model.Agent(
         id: id,
         name: name,
         personality: personality,
@@ -23,14 +23,14 @@ extension AgentsRowExtension on AgentsRow {
       );
 }
 
-extension ActivityItemsRowExtension on ActivityItemsRow {
-  ActivityItem toActivity() => ActivityItem(
+extension ActivityItemRowExtension on ActivityItem {
+  activity.ActivityItem toActivity() => activity.ActivityItem(
         id: id,
-        kind: ActivityKind.values.firstWhere((e) => e.name == kind),
+        kind: activity.ActivityKind.values.firstWhere((e) => e.name == kind),
         title: title,
         details: details ?? '',
         status:
-            ActivityStatus.values.firstWhere((e) => e.name == status),
+            activity.ActivityStatus.values.firstWhere((e) => e.name == status),
         createdAt: createdAt ?? DateTime.now(),
       );
 }
