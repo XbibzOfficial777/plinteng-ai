@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/widgets/app_scaffold.dart';
 import '../../../core/widgets/section_card.dart';
@@ -35,7 +36,7 @@ class SettingsScreen extends StatelessWidget {
             title: 'AI',
             child: Column(
               children: [
-                _SettingRow(icon: Icons.cloud_sync_outlined, title: 'Penyedia AI', subtitle: 'OpenAI · Gemini · Claude'),
+                _SettingRow(icon: Icons.cloud_sync_outlined, title: 'Penyedia AI', subtitle: 'OpenAI · Gemini · Claude', onTap: () => context.push('/settings/ai')),
                 _SettingRow(icon: Icons.psychology_outlined, title: 'Model default', subtitle: 'Auto'),
                 _SettingRow(icon: Icons.smart_toy_outlined, title: 'Agent', subtitle: 'Linca'),
               ],
@@ -82,10 +83,16 @@ class SettingsScreen extends StatelessWidget {
 }
 
 class _SettingRow extends StatelessWidget {
-  const _SettingRow({required this.icon, required this.title, required this.subtitle});
+  const _SettingRow({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    this.onTap,
+  });
   final IconData icon;
   final String title;
   final String subtitle;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +102,7 @@ class _SettingRow extends StatelessWidget {
       title: Text(title, style: theme.textTheme.bodyMedium),
       subtitle: Text(subtitle, style: theme.textTheme.bodySmall),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () {},
+      onTap: onTap,
     );
   }
 }

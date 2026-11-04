@@ -23,6 +23,9 @@ dependencies:
   # Networking
   dio: ^5.11.1
 
+  # Formatting
+  intl: ^0.20.3
+
   # Models & serialization
   freezed_annotation: ^3.1.0
   json_annotation: ^4.12.0
@@ -53,7 +56,6 @@ dev_dependencies:
   riverpod_generator: ^4.0.9
   freezed: ^4.0.2
   drift_dev: ^2.35.2
-  mockito: ^5.8.1
 
 flutter:
   uses-material-design: true

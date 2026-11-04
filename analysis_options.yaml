@@ -17,6 +17,8 @@ analyzer:
     - "**/*.g.dart"
     - "**/*.freezed.dart"
     - "**/*.drift.dart"
+    - build/**
+    - android/**
   errors:
     invalid_annotation_target: warning
   language:

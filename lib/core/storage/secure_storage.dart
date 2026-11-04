@@ -49,6 +49,12 @@ class SecureStorage {
     );
   }
 
+  Future<void> deleteProviderApiKey(String providerId) async {
+    await _storage.delete(
+      key: '$_kProviderApiKeyPrefix$providerId',
+    );
+  }
+
   Future<void> saveTelegramBotToken(String token) async {
     await _storage.write(
       key: _kTelegramBotToken,
