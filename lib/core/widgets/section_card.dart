@@ -50,14 +50,14 @@ class SectionCard extends StatelessWidget {
 }
 
 /// Small status pill (connected / active / idle / error / warning).
+enum StatusKind { idle, active, success, warning, error, disabled }
+
 class StatusPill extends StatelessWidget {
   const StatusPill({
     super.key,
     required this.label,
     this.kind = StatusKind.idle,
   });
-
-  enum StatusKind { idle, active, success, warning, error, disabled }
 
   final String label;
   final StatusKind kind;

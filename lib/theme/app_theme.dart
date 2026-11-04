@@ -231,8 +231,8 @@ class _PlintengPageTransitions extends PageTransitionsBuilder {
       _PlintengPageTransitions._();
 
   @override
-  Widget buildTransitions(
-    PageRoute<dynamic> route,
+  Widget buildTransitions<T extends Animation<double>>(
+    PageRoute<T> route,
     BuildContext context,
     Animation<double> animation,
     Animation<double> secondaryAnimation,
@@ -240,7 +240,7 @@ class _PlintengPageTransitions extends PageTransitionsBuilder {
   ) {
     final offset = Tween<Offset>(
       begin: const Offset(0.15, 0),
-      end: const Offset.zero,
+      end: Offset.zero,
     ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOutCubic));
 
     final fade = FadeTransition(

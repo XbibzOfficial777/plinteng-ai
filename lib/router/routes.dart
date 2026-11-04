@@ -59,4 +59,4 @@ abstract final class AppRoutes {
 }
 
 /// Bottom navigation destinations. Keep deliberate — max 4.
-enum class ShellDestination { home, agents, activity, settings }
+enum ShellDestination { home, agents, activity, settings }
