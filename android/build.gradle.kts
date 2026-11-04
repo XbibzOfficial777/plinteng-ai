@@ -1,7 +1,19 @@
 // Top-level build file. Plugin versions live in settings.gradle.kts.
-// Redirects the Android build output to the Flutter standard ../build dir.
+
 rootProject.layout.buildDirectory.value(
     rootProject.layout.buildDirectory
         .dir("../../build")
         .get()
 )
+
+subprojects {
+    project.layout.buildDirectory.value(
+        rootProject.layout.buildDirectory
+            .dir(project.name)
+            .get()
+    )
+}
+
+tasks.register<Delete>("clean") {
+    delete(rootProject.layout.buildDirectory)
+}
