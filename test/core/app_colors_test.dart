@@ -9,9 +9,9 @@ void main() {
 
   test('primary color is coral/orange family', () {
     final c = AppColors.primary;
-    expect(c.r, greaterThan(180));
-    expect(c.g, greaterThan(80));
-    expect(c.b, lessThan(140));
+    expect(c.r, greaterThan(0.8));
+    expect(c.g, greaterThan(0.3));
+    expect(c.b, lessThan(0.6));
   });
 
   test('semantic tokens cover required categories', () {
