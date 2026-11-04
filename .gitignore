@@ -1,0 +1,43 @@
+# Flutter / Dart
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+build/
+
+# Android / Gradle
+android/.gradle/
+android/local.properties
+android/.idea/
+android/captures/
+android/app/release/
+android/.cxx/
+*.iml
+.gradle/
+local.properties
+
+# IDE
+.idea/
+*.iml
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Secrets — never commit credentials or signing keys
+*.jks
+*.keystore
+keystore.properties
+.env
+.env.*
+!.env.example
+
+# CI / tooling
+coverage/
+.metadata

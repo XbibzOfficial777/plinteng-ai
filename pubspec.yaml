@@ -1,0 +1,71 @@
+name: plinteng_ai
+description: "Plinteng AI — Personal AI Agent & Automation Platform for Android"
+publish_to: 'none'
+version: 0.1.0+1
+
+environment:
+  sdk: '>=3.13.5 <4.0.0'
+  flutter: '>=3.47.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+    material_design_icons: true
+
+  # State management & DI
+  flutter_riverpod: ^3.4.3
+  riverpod_annotation: ^4.0.7
+
+  # Navigation
+  go_router: ^18.1.2
+
+  # Networking
+  dio: ^5.11.1
+
+  # Models & serialization
+  freezed: ^4.0.3
+  freezed_annotation: ^3.1.0
+  json_serializable: ^6.15.2
+
+  # Local database
+  drift: ^2.35.3
+  drift_flutter: ^0.3.1
+
+  # Secure storage
+  flutter_secure_storage: ^11.2.0
+
+  # Rive — mandatory character animation engine
+  rive: ^0.14.11
+
+  # Local notifications
+  flutter_local_notifications: ^22.3.3
+
+  # General storage / files
+  shared_preferences: ^2.5.6
+  path_provider: ^2.1.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  build_runner: ^2.17.1
+  riverpod_generator: ^4.0.9
+  freezed: ^4.0.3
+  json_serializable: ^6.15.2
+  drift_dev: ^2.35.2
+  mockito: ^5.8.1
+
+flutter:
+  uses-material-design: true
+
+  fonts:
+    - family: Outfit
+      fonts:
+        - asset: assets/fonts/Outfit-Variable.ttf
+
+  assets:
+    - assets/images/
+    - assets/icons/
+    - assets/rive/
