@@ -11,3 +11,7 @@
 # Keep annotations used by code generation
 -keepattributes *Annotation*
 -keepattributes Signature
+
+# Flutter engine references Play Core deferred-component classes that are
+# not bundled (we don't use deferred components); nothing calls them at runtime.
+-dontwarn com.google.android.play.core.**
