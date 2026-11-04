@@ -1,1 +1,7 @@
-// Top-level build file. Plugin versions are declared in settings.gradle.kts.
+// Top-level build file. Plugin versions live in settings.gradle.kts.
+// Redirects the Android build output to the Flutter standard ../build dir.
+rootProject.layout.buildDirectory.value(
+    rootProject.layout.buildDirectory
+        .dir("../../build")
+        .get()
+)
